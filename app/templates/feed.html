@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>All Posts</h1>
+
+{% for post in posts %}
+<div class="card" style="width: 18rem;">
+  <a href='{{ url_for("singlePost", post_id=post.id) }}' class="text-dark text-decoration-none"><img src="{{ post.img_url }}" class="card-img-top" alt="{{post.title}}">
+  <div class="card-body">
+    <h5 class="card-title">{{post.title}} - {{post.author.username}}</h5>
+    <p class="card-text">{{post.caption}}
+    </p>
+  </div></a>
+  <p>Like Count: {{post.getLikeCounter()}} </p>
+  {% if current_user.is_authenticated %}
+  {% if not post.liked %}
+  <a href="{{ url_for('likePost', post_id=post.id)}}"class="btn btn-success">Like</a>
+  {%else%}
+  <a href="{{ url_for('unlikePost', post_id=post.id)}}"class="btn btn-danger">Unlike</a>
+  {%endif%}
+  {%endif%}
+
+</div>
+  
+
+{% endfor %}
+
+
+
+
+{% endblock %}

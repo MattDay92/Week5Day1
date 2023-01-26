@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Single Post</h1>
+
+<div class="card" style="width: 18rem;">
+  <img src="{{ post.img_url }}" class="card-img-top" alt="{{post.title}}">
+  <div class="card-body">
+    <h5 class="card-title">{{post.title}} - {{post.author.username}}</h5>
+    <p class="card-text">{{post.caption}}
+    </p>
+  </div>
+</div>
+
+<a class="btn btn-primary d-inline" href="{{url_for('updatePost', post_id = post.id)}}">Update</a>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Delete
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">This action cannot be undone</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <a href="{{ url_for('deletePost', post_id=post.id) }}" type="button" class="btn btn-danger">Delete</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
